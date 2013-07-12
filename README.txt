@@ -29,4 +29,4 @@ Usage examples
 Note
 - Preparation procedures (turning off CBC, turning off signal clarity, force
   update, force cal, etc...) are enabled by default except for report types 2,
-  3, 38, and 40.
+  3, 22, 23, 38, and 40.
