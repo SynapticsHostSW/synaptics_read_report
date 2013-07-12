@@ -365,6 +365,8 @@ int main(int argc, char* argv[])
 		switch (report_type) {
 		case F54_16BIT_IMAGE:
 		case F54_RAW_16BIT_IMAGE:
+		case F54_SENSOR_SPEED:
+		case F54_ADC_RANGE:
 		case F54_ABS_CAP:
 		case F54_ABS_DELTA:
 			break;
@@ -500,6 +502,8 @@ int main(int argc, char* argv[])
 		switch (report_type) {
 		case F54_16BIT_IMAGE:
 		case F54_RAW_16BIT_IMAGE:
+		case F54_SENSOR_SPEED:
+		case F54_ADC_RANGE:
 		case F54_ABS_CAP:
 		case F54_ABS_DELTA:
 			break;
