@@ -37,6 +37,7 @@
 
 #define DATA_FILENAME "f54/report_data"
 #define DO_PREPARATION_FILENAME "f54/do_preparation"
+#define RESUME_TOUCH_FILENAME "f54/resume_touch"
 #define REPORT_TYPE_FILENAME "f54/report_type"
 #define GET_REPORT_FILENAME "f54/get_report"
 #define REPORT_SIZE_FILENAME "f54/report_size"
@@ -210,6 +211,17 @@ static void DoPreparation(int value)
 	char tmpfname[MAX_STRING_LEN];
 
 	snprintf(tmpfname, MAX_STRING_LEN, "%s/%s", mySensor, DO_PREPARATION_FILENAME);
+
+	WriteValueToSysfsFile(tmpfname, value);
+
+	return;
+}
+
+static void ResumeTouch(int value)
+{
+	char tmpfname[MAX_STRING_LEN];
+
+	snprintf(tmpfname, MAX_STRING_LEN, "%s/%s", mySensor, RESUME_TOUCH_FILENAME);
 
 	WriteValueToSysfsFile(tmpfname, value);
 
@@ -506,11 +518,14 @@ int main(int argc, char* argv[])
 		case F54_ADC_RANGE:
 		case F54_ABS_CAP:
 		case F54_ABS_DELTA:
+			ResumeTouch(1);
 			break;
 		default:
 			DoReset(1);
 			break;
 		}
+	} else {
+		ResumeTouch(1);
 	}
 
 	if (data_buffer)
