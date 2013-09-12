@@ -85,7 +85,6 @@ static void usage(char *name)
 	printf("Usage: %s {report_type} [-n {number of readings}] [-c] [-s]\n", name);
 	printf("\t[-n] - number of report readings to take\n");
 	printf("\t[-c] - display output in cartesian format\n");
-	printf("\t[-s] - skip preparation procedures\n");
 
 	return;
 }
@@ -319,7 +318,6 @@ int main(int argc, char* argv[])
 	int readings = 1;
 	int reading;;
 	int cartesian = 0;
-	int skip_preparation = 0;
 	int patience = PATIENCE;
 	int report_type;
 	int report_size;
@@ -360,8 +358,6 @@ int main(int argc, char* argv[])
 			readings = (unsigned int)strtoul(argv[this_arg], NULL, 0);
 		} else if (!strcmp((const char *)argv[this_arg], "-c")) {
 			cartesian = 1;
-		} else if (!strcmp((const char *)argv[this_arg], "-s")) {
-			skip_preparation = 1;
 		} else {
 			report_type = strtoul(argv[this_arg], NULL, 0);
 		}
@@ -373,19 +369,17 @@ int main(int argc, char* argv[])
 		tx_num = GetTxElectrodes();
 	}
 
-	if (!skip_preparation) {
-		switch (report_type) {
-		case F54_16BIT_IMAGE:
-		case F54_RAW_16BIT_IMAGE:
-		case F54_SENSOR_SPEED:
-		case F54_ADC_RANGE:
-		case F54_ABS_CAP:
-		case F54_ABS_DELTA:
-			break;
-		default:
-			DoPreparation(1);
-			break;
-		}
+	switch (report_type) {
+	case F54_16BIT_IMAGE:
+	case F54_RAW_16BIT_IMAGE:
+	case F54_SENSOR_SPEED:
+	case F54_ADC_RANGE:
+	case F54_ABS_CAP:
+	case F54_ABS_DELTA:
+		break;
+	default:
+		DoPreparation(1);
+		break;
 	}
 
 	for (reading = 0; reading < readings; reading++) {
@@ -510,22 +504,18 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	if (!skip_preparation) {
-		switch (report_type) {
-		case F54_16BIT_IMAGE:
-		case F54_RAW_16BIT_IMAGE:
-		case F54_SENSOR_SPEED:
-		case F54_ADC_RANGE:
-		case F54_ABS_CAP:
-		case F54_ABS_DELTA:
-			ResumeTouch(1);
-			break;
-		default:
-			DoReset(1);
-			break;
-		}
-	} else {
+	switch (report_type) {
+	case F54_16BIT_IMAGE:
+	case F54_RAW_16BIT_IMAGE:
+	case F54_SENSOR_SPEED:
+	case F54_ADC_RANGE:
+	case F54_ABS_CAP:
+	case F54_ABS_DELTA:
 		ResumeTouch(1);
+		break;
+	default:
+		DoReset(1);
+		break;
 	}
 
 	if (data_buffer)
