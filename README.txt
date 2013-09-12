@@ -13,15 +13,14 @@ Use ADB (Android Debug Bridge) to do report reading
 
 Parameters
 [-n] - number of report readings to take
-[-c] - display output in cartesian format
-[-s] - skip preparation procedures
+[-c] - display output in 2D format
 
 Usage examples
 - Read report type 3 once
    adb shell /data/synaptics_read_report 3
-- Read report type 20 once without doing preparation procedures
-   adb shell /data/synaptics_read_report 20 -s
-- Read report type 2 15 times and save output in cartesian format to report_output.txt
+- Read report type 20 once and display in 2D format
+   adb shell /data/synaptics_read_report 20 -c
+- Read report type 2 15 times and save output in 2D format to report_output.txt
    adb shell "/data/synaptics_read_report 3 -n 15 -c > /data/report_output.txt"
 - Retrieve report_output.txt
    adb pull /data/report_output.txt

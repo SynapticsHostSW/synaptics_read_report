@@ -26,7 +26,7 @@
 #include <unistd.h>
 #include <sys/time.h>
 
-#define VERSION "1.6"
+#define VERSION "1.7"
 
 #define INPUT_PATH "/sys/class/input/input"
 #define NUMBER_OF_INPUTS_TO_SCAN 20
@@ -84,7 +84,7 @@ static void usage(char *name)
 	printf("Version %s\n", VERSION);
 	printf("Usage: %s {report_type} [-n {number of readings}] [-c] [-s]\n", name);
 	printf("\t[-n] - number of report readings to take\n");
-	printf("\t[-c] - display output in cartesian format\n");
+	printf("\t[-c] - display output in 2D format\n");
 
 	return;
 }
